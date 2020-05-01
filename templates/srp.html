@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="jumbotron" style="background-color: transparent;">
+        <h1 class="display-3">{{ data["title"] }}</h1>
+        <p style="margin-top: -10px; font-size: 22px;">{{ data["plot"] }}</p>
+        <p>
+            {% for genre in data["genre"] %}
+            <span class="badge badge-pill badge-warning" style="font-size: 18px;">{{ genre }}</span>
+            {% endfor %}
+        </p>
+        <br><br>
+        <h1 class="display-5">Episodes rating trend</h1>
+        <canvas id="myChart" height="80"></canvas>
+        <br>
+        <h1 class="display-5">More stuff</h1>
+        <ul style="list-style-type:disc; font-size: 22px;">
+            <li>Release date → {{ data["released"].replace(".", "") }}</li>
+            <li>IMDB rating → {{ data["imdb"]["rating"] }}/10 (based on {{ data["imdb"]["votes"] }} votes)</li>
+            <li>{{ data["awards"].replace(".", "") }}</li>
+            <li>{{ data["num_of_seasons"] }} seasons</li>
+            <li>{{ data["episodes"]|length }} episodes</li>
+            <li>Language → {{ data["language"].replace(".", "") }}</li>
+            <li>Locations → {{ data["country"].replace(".", "") }}</li>
+            <li>Cast → {{ (", ".join(data["actors"]).replace(".", "")) }}</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+<script>
+    new Chart(document.getElementById("myChart"), {
+        type: 'line',
+        data: {
+            labels: [{% for item in labels %}"{{item}}",{% endfor %}],
+            datasets: [{ 
+                data: [{% for item in values %}{{item|tojson|safe}},{% endfor %}],
+                borderColor: "#ffc107",
+                fill: true
+            }]
+        },
+        options: {
+            tooltips: {
+                enabled: false
+            },
+            title: {
+                display: false,
+                text: "{{ data['title'] }}"
+            },
+            legend: {
+                display: false
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        max: 10,
+                        min: 0,
+                        stepSize: 1
+                    }
+                }]
+            }
+        }
+});
+</script>
+
+{% endblock %}
