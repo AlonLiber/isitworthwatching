@@ -8,9 +8,20 @@ from flask import request
 import omdb
 import argparse
 import os
+import random
 
 # initialize app
 app = Flask(__name__)
+
+OPTIONS = [
+    "house of cards",
+    "when they see us",
+    "queen of the south",
+    "money heist",
+    "lost",
+    "south park",
+    "you"
+]
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -18,21 +29,24 @@ def index():
     main route
     """
     if request.method == "GET":
-        return rt("index.html")
+        suffix = str(random.choice(OPTIONS)).lower().replace(" ", "-")
+    else:
+        suffix = str(request.form["q"]).lower().replace(" ", "-")
 
-    suffix = str(request.form["q"]).lower().replace(" ", "-")
     return redirect("/%s" % (suffix))
 
 @app.route("/<string:title>")
-def srp(title):
+def search(title):
     """
-    search result page route
+    search route
     """
     data = omdb.find_by_title(title.replace("-", " "))
 
-    # series not found if data is empty {}
     if not data:
-        return redirect("/not-found")
+        data = omdb.find_by_title(random.choice(OPTIONS))
+        found = False
+    else:
+        found = True
     
     labels = []
     values = []
@@ -46,7 +60,7 @@ def srp(title):
         })
         i += 1
 
-    return rt("srp.html", data=data, labels=labels, values=values)
+    return rt("search.html", data=data, labels=labels, values=values, found=found)
 
 @app.route("/not-found", methods=["GET"])
 def not_found():

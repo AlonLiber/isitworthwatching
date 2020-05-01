@@ -3,7 +3,30 @@
 
 {% block body %}
 <div class="container">
-    <div class="jumbotron" style="background-color: transparent;">
+    <nav class="navbar navbar-dark bg-dark">
+        <ul class="navbar-nav mr-auto"></ul>
+        <form action="/" method="POST">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search any TV show or series ..." style="font-size: 18px; width: 260px;" required autocomplete="off">
+                <div class="input-group-append">
+                    <button class="btn btn-warning" type="submit"><b style="font-size: 18px;">SEARCH</b></button>
+                </div>
+            </div>
+        </form>
+        <span class="navbar-text">
+            <button type="button" id="contact" class="btn btn-outline-secondary ml-2 mr-3" style="font-size: 18px;"><b>Let's Talk</b></button>
+        </span>
+    </nav>
+
+    <div class="jumbotron mt-0" style="background-color: transparent;">
+        {% if found == False %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="font-size: 20px;">
+            <b>That's a shame!</b>, Couldn't find what you were looking for, pls Try again. In the meantime, here's ↬ <b>"{{ data["title"] }}"</b>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}
         <h1 class="display-3">{{ data["title"] }}</h1>
         <p style="margin-top: -10px; font-size: 22px;">{{ data["plot"] }}</p>
         <p>
@@ -66,6 +89,9 @@
             }
         }
 });
-</script>
 
+$('#contact').on("click", function(event) {
+    window.open("https://mail.google.com/mail/?view=cm&fs=1&to=sideprojects.inbox@gmail.com")
+});
+</script>
 {% endblock %}
