@@ -4,23 +4,23 @@
 {% block body %}
 <div class="container">
     <nav class="navbar navbar-dark bg-dark">
-        <ul class="navbar-nav mr-auto"></ul>
-        <form action="/" method="POST">
-            <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Search any TV show or series ..." style="font-size: 18px; width: 260px;" required autocomplete="off">
-                <div class="input-group-append">
-                    <button class="btn btn-warning" type="submit"><b style="font-size: 18px;">SEARCH</b></button>
+        <ul class="navbar-nav ml-auto"></ul>
+        <div class="row">
+            <form action="/" method="POST">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search any TV show or series ..." style="font-size: 18px; width: 260px;" required autocomplete="off">
+                    <div class="input-group-append">
+                        <button class="btn btn-warning" type="submit"><b style="font-size: 18px;">SEARCH</b></button>
+                    </div>
                 </div>
-            </div>
-        </form>
-        <span class="navbar-text">
-            <button type="button" id="contact" class="btn btn-outline-secondary ml-2 mr-3" style="font-size: 18px;"><b>Let's Talk</b></button>
-        </span>
+            </form>
+            <button type="button" id="contact" class="btn btn-outline-secondary mr-3 ml-2" style="font-size: 18px;"><b>Let's Talk</b></button>
+        </div>
     </nav>
 
     <div class="jumbotron mt-0" style="background-color: transparent;">
         {% if found == False %}
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="font-size: 20px; margin-top: -50px;">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="font-size: 20px; margin-top: -25px;">
             <b>That's a shame!</b>, Couldn't find what you were looking for, pls Try again. In the meantime, here's ↬ <b>"{{ data["title"] }}"</b>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
