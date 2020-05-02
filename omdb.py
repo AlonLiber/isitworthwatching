@@ -46,6 +46,10 @@ def find_by_title(title, type_="series", plot="full"):
 
         data["episodes"] = get_episodes(data["title"], data["num_of_seasons"])
 
+        if not data["episodes"]:
+            # if i can't get # of seasons, I won't return the result for now
+            return {}
+
     return data
 
 def get_episodes(title, num_of_seasons):
@@ -58,12 +62,12 @@ def get_episodes(title, num_of_seasons):
         response = requests.get(url="%s?t=%s&Season=%s&apikey=%s" % (API_URL, title, str(i+1), API_KEY))
 
         if response.status_code != 200:
-            raise NotImplementedError
+            return []
 
-        body = response.json()    
+        body = response.json()
 
         if body["Response"] != "True":
-            raise NotImplementedError
+            return []
 
         for episode in body["Episodes"]:
             episodes.append({
