@@ -20,7 +20,7 @@
 
     <div class="jumbotron mt-0" style="background-color: transparent;">
         {% if found == False %}
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="font-size: 20px; margin-top: -25px;">
+        <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert" style="font-size: 20px; margin-top: -25px;">
             <b>That's a shame!</b>, Couldn't find what you were looking for, pls Try again. In the meantime, here's ↬ <b>"{{ data["title"] }}"</b>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -29,7 +29,7 @@
         {% endif %}
         <h1 class="display-3">{{ data["title"] }}</h1>
         <p style="margin-top: -10px; font-size: 22px;">{{ data["plot"] }}</p>
-        <p>
+        <p style="line-height: 35px;">
             {% for genre in data["genre"] %}
             <span class="badge badge-pill badge-warning" style="font-size: 18px;">{{ genre }}</span>
             {% endfor %}
