@@ -35,7 +35,7 @@
             {% endfor %}
         </p>
         <br>
-        <h1 class="display-5">Episodes rating trend</h1>
+        <h1 class="display-5">Episodes rating trend <small style="font-size: 22px;">(Based on {{ data["episodes"]|length }} episodes)</small></h1>
         <canvas id="myChart" height="80"></canvas>
         <br>
         <h1 class="display-5">FYI ...</h1>
@@ -44,7 +44,6 @@
             <li>IMDB rating → {{ data["imdb"]["rating"] }}/10 (based on {{ data["imdb"]["votes"] }} votes)</li>
             <li>{{ data["awards"].replace(".", "") }}</li>
             <li>{{ data["num_of_seasons"] }} seasons</li>
-            <li>{{ data["episodes"]|length }} episodes</li>
             <li>Language → {{ data["language"].replace(".", "") }}</li>
             <li>Locations → {{ data["country"].replace(".", "") }}</li>
             <li>Cast → {{ (", ".join(data["actors"]).replace(".", "")) }}</li>
