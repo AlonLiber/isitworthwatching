@@ -19,8 +19,8 @@ OPTIONS = [
     "queen of the south",
     "money heist",
     "lost",
-    "south park",
-    "you"
+    "you",
+    "breaking bad"
 ]
 
 @app.route("/", methods=["GET", "POST"])

@@ -20,7 +20,7 @@
 
     <div class="jumbotron mt-0" style="background-color: transparent;">
         {% if found == False %}
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="font-size: 20px;">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="font-size: 20px; margin-top: -50px;">
             <b>That's a shame!</b>, Couldn't find what you were looking for, pls Try again. In the meantime, here's ↬ <b>"{{ data["title"] }}"</b>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -34,11 +34,11 @@
             <span class="badge badge-pill badge-warning" style="font-size: 18px;">{{ genre }}</span>
             {% endfor %}
         </p>
-        <br><br>
+        <br>
         <h1 class="display-5">Episodes rating trend</h1>
         <canvas id="myChart" height="80"></canvas>
         <br>
-        <h1 class="display-5">More stuff</h1>
+        <h1 class="display-5">FYI ...</h1>
         <ul style="list-style-type:disc; font-size: 22px;">
             <li>Release date → {{ data["released"].replace(".", "") }}</li>
             <li>IMDB rating → {{ data["imdb"]["rating"] }}/10 (based on {{ data["imdb"]["votes"] }} votes)</li>
@@ -91,7 +91,7 @@
 });
 
 $('#contact').on("click", function(event) {
-    window.open("https://mail.google.com/mail/?view=cm&fs=1&to=sideprojects.inbox@gmail.com")
+    document.location.href = "mailto:sideprojects.inbox@gmail.com?subject=Let's Talk"
 });
 </script>
 {% endblock %}

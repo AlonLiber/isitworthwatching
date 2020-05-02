@@ -15,11 +15,11 @@ def find_by_title(title, type_="series", plot="full"):
         raise NotImplementedError
 
     body = response.json()    
+    data = {}
 
     if body["Response"] != "True":
         return {}
 
-    data = {}
     data["title"] = body["Title"]
     data["released"] = body["Released"]
     data["genre"] = body["Genre"].split(",")
@@ -35,10 +35,15 @@ def find_by_title(title, type_="series", plot="full"):
         "imdb_id": body["imdbID"] 
     }
 
-    data["is_series"] = (False, True)[body["Type"].lower() == "series"]
+    data["type"] = body["Type"]
 
-    if data["is_series"]:
-        data["num_of_seasons"] = int(body["totalSeasons"])
+    if data["type"].lower() == "series":
+        try:
+            data["num_of_seasons"] = int(body["totalSeasons"])
+        except:
+            # if i can't get # of seasons, I won't return the result for now
+            return {}
+
         data["episodes"] = get_episodes(data["title"], data["num_of_seasons"])
 
     return data
