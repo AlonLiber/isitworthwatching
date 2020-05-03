@@ -2,44 +2,79 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-<div class="container mt-2">
-    <nav class="navbar navbar-dark bg-dark">
-        <ul class="navbar-nav ml-auto"></ul>
-        <div class="row">
-            <form action="/" method="POST">
-                <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search any TV show or series ..." style="font-size: 18px; width: 273px;" required autocomplete="off">
-                    <div class="input-group-append">
-                        <button class="btn btn-warning" type="submit"><b style="font-size: 18px;">SEARCH</b></button>
-                    </div>
-                </div>
-            </form>
-            <button type="button" id="contact" class="btn btn-outline-secondary mr-3 ml-2" style="font-size: 18px;"><b>Let's Talk</b></button>
-        </div>
-    </nav>
-
-    <div class="jumbotron mt-0" style="background-color: transparent;">
+<div class="jumbotron p-2" style="background-color: transparent;">
+    <div class="container mt-2">
         {% if found == False %}
-        <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert" style="font-size: 20px; margin-top: -25px;">
+        <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
             <b>That's a shame!</b>, Couldn't find what you were looking for, pls Try again. In the meantime, here's ↬ <b>"{{ data["title"] }}"</b>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         {% endif %}
-        <h1 class="display-3">{{ data["title"] }}</h1>
-        <p style="margin-top: -10px; font-size: 22px;">{{ data["plot"] }}</p>
+
+        <div class="row">
+            <div class="col-8">
+                <div class="row p-1">
+                    <button type="button" id="contact" class="btn btn-link" style="color: white; height: 45px; text-decoration: none; font-size: 20px;">Contact</button>
+                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#about" style="color: white; height: 45px; text-decoration: none; font-size: 20px;">About</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="about" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document" style="color: black;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Hey there!</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                        
+                                <div class="modal-body">
+                                    <p>If you're wondering if it's worth watching ... You're in the right place 😋.</p>
+                                    <p>This website will help you to decide if you should watch or not based on episodes rating trend. All you'll need to do is to write the TV show or the series name (in English) at the right top corner and you'll see the rating trend chart and some other cool data 🤩.</p>
+                                    <p>
+                                        If you enjoyed it ... Share it with your friends ... 
+                                        <button class="btn btn-link ml-3" data-sharer="facebook" data-hashtag="isitworthwatching" data-url="https://isitworthwatching.herokuapp.com"><i class="fab fa-facebook fa-2x"></i></button>
+                                        <button class="btn btn-link" style="margin-left: -5px;" data-sharer="whatsapp" data-title="Hey! Check out that Website ... " data-url="https://isitworthwatching.herokuapp.com"><i class="fab fa-whatsapp fa-2x" style="color: #1ebea5;"></i></button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <form action="/" method="POST">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="Search for any TV show or series ..." required autocomplete="off" style="height: 45px; font-size: 18px;">
+                        <div class="input-group-append">
+                            <button class="btn btn-warning" type="submit">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-8"></div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <span id="typed" style="font-size: 18px;"></span>
+            </div>
+        </div>
+
+        <h1 class="display-3 mt-5">{{ data["title"] }}</h1>
+        <p>{{ data["plot"] }}</p>
         <p style="line-height: 35px;">
             {% for genre in data["genre"] %}
-            <span class="badge badge-pill badge-warning" style="font-size: 18px;">{{ genre }}</span>
+            <span class="badge badge-pill badge-warning">{{ genre }}</span>
             {% endfor %}
         </p>
         <br>
-        <h1 class="display-5">Episodes rating trend <small style="font-size: 22px;">(based on {{ data["episodes"]|length }} episodes)</small></h1>
+        <h2>Episodes rating trend <small>(based on {{ data["episodes"]|length }} episodes)</small></h2>
         <canvas id="myChart" height="80"></canvas>
         <br>
         <h1 class="display-5">FYI ...</h1>
-        <ul style="list-style-type:disc; font-size: 22px;">
+        <ul style="list-style-type:disc;">
             <li>Release date → {{ data["released"].replace(".", "") }}</li>
             <li>IMDB rating → {{ data["imdb"]["rating"] }}/10 (based on {{ data["imdb"]["votes"] }} votes)</li>
             <li>Awards → {{ data["awards"].replace(".", "") }}</li>
@@ -87,6 +122,28 @@
 
 $('#contact').on("click", function(event) {
     document.location.href = "mailto:sideprojects.inbox@gmail.com?subject=Let's Talk"
+});
+
+var typed = new Typed('#typed', {
+    strings: [
+        '(Try → "Game of Thrones")',
+        '(Try → "Queen of the South")',
+        '(Try → "Dexter")',
+        '(Try → "When They See Us")',
+        '(Try → "Lost")',
+        '(Try → "You")',
+        '(Try → "House of Cards")',
+        '(Try → "Homeland")',
+        '(Try → "Breaking Bad")',
+        '(Try → "Money Heist")'
+    ],
+    backDelay: 2000,
+    backSpeed: 20,
+    typeSpeed: 50,
+    loop: true,
+    loopCount: Infinity,
+    shuffle: false,
+    smartBackspace: false,
 });
 </script>
 {% endblock %}
