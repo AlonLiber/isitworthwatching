@@ -55,14 +55,14 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" style="margin-top: 7px;">
             <div class="col-8"></div>
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                <span id="typed" style="font-size: 18px;"></span>
+                <label>You can try: <span id="typed"></span></label>
             </div>
         </div>
 
-        <h1 class="display-3 mt-5">{{ data["title"] }}</h1>
+        <h1 class="display-3 mt-3">{{ data["title"] }}</h1>
         <p>{{ data["plot"] }}</p>
         <p style="line-height: 35px;">
             {% for genre in data["genre"] %}
@@ -126,16 +126,14 @@ $('#contact').on("click", function(event) {
 
 var typed = new Typed('#typed', {
     strings: [
-        '(Try → "Game of Thrones")',
-        '(Try → "Queen of the South")',
-        '(Try → "Dexter")',
-        '(Try → "When They See Us")',
-        '(Try → "Lost")',
-        '(Try → "You")',
-        '(Try → "House of Cards")',
-        '(Try → "Homeland")',
-        '(Try → "Breaking Bad")',
-        '(Try → "Money Heist")'
+        '"Game of Thrones"',
+        '"Queen of the South"',
+        '"Dexter"',
+        '"When They See Us"',
+        '"House of Cards"',
+        '"Homeland"',
+        '"Breaking Bad"',
+        '"Money Heist"'
     ],
     backDelay: 2000,
     backSpeed: 20,
