@@ -69,7 +69,12 @@ def get_episodes(title, num_of_seasons):
         if body["Response"] != "True":
             return []
 
+        print(body)
+
         for episode in body["Episodes"]:
+            if episode["imdbRating"].lower() == "n/a":
+                continue
+
             episodes.append({
                 "title": episode["Title"],
                 "released": episode["Released"],
