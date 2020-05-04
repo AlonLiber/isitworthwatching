@@ -55,18 +55,19 @@
             </div>
         </div>
 
-        <div class="row" style="margin-top: 7px;">
+        <!-- <div class="row" style="margin-top: 7px;">
             <div class="col-8"></div>
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <label>You can try: <span id="typed"></span></label>
             </div>
-        </div>
+        </div> -->
 
-        <h1 class="display-3 mt-3">{{ data["title"] }}</h1>
-        <p>{{ data["plot"] }}</p>
+        <h1 class="display-3 mt-4" id="title" style="margin-bottom: -10px;">{{ data["title"] }}</h1>
+        <!-- <label class="text-secondary ml-1">Or Try → <span id="typed"></span></label> -->
+        <p class="mt-2">{{ data["plot"] }}</p>
         <p style="line-height: 35px;">
             {% for genre in data["genre"] %}
-            <span class="badge badge-pill badge-warning">{{ genre }}</span>
+            <span class="badge badge-pill badge-warning" style="font-size: 18px;">{{ genre }}</span>
             {% endfor %}
         </p>
         <br>
@@ -124,17 +125,22 @@ $('#contact').on("click", function(event) {
     document.location.href = "mailto:sideprojects.inbox@gmail.com?subject=Let's Talk"
 });
 
+var options = [
+    'Game of Thrones',
+    'Queen of the South',
+    'Dexter',
+    'When They See Us',
+    'House of Cards',
+    'Homeland',
+    'Breaking Bad',
+    'Money Heist'
+]
+
+// remove the current series name
+options.splice(options.indexOf($('#title').html()), 1);
+
 var typed = new Typed('#typed', {
-    strings: [
-        '"Game of Thrones"',
-        '"Queen of the South"',
-        '"Dexter"',
-        '"When They See Us"',
-        '"House of Cards"',
-        '"Homeland"',
-        '"Breaking Bad"',
-        '"Money Heist"'
-    ],
+    strings: options,
     backDelay: 2000,
     backSpeed: 20,
     typeSpeed: 50,
