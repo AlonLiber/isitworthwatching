@@ -62,13 +62,6 @@ def search(title):
 
     return rt("search.html", data=data, labels=labels, values=values, found=found)
 
-@app.route("/not-found", methods=["GET"])
-def not_found():
-    """
-    series not found route
-    """
-    return rt("not-found.html")
-
 def config_parser():
     """
     config app parser

@@ -30,25 +30,22 @@ def find_by_title(title, type_="series", plot="full"):
     data["awards"] = body["Awards"]
 
     data["imdb"] = {
+        "imdb_id": body["imdbID"] ,
         "rating": body["imdbRating"],
         "votes": body["imdbVotes"],
-        "imdb_id": body["imdbID"] 
     }
 
     data["type"] = body["Type"]
 
-    if data["type"].lower() == "series":
-        try:
-            data["num_of_seasons"] = int(body["totalSeasons"])
-        except:
-            # if i can't get # of seasons, I won't return the result for now
-            return {}
+    try:
+        data["num_of_seasons"] = int(body["totalSeasons"])
+    except:
+        return {}
 
-        data["episodes"] = get_episodes(data["title"], data["num_of_seasons"])
+    data["episodes"] = get_episodes(data["title"], data["num_of_seasons"])
 
-        if not data["episodes"]:
-            # if i can't get # of seasons, I won't return the result for now
-            return {}
+    if not data["episodes"]:
+        return {}
 
     return data
 

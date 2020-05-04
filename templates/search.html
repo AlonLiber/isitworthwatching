@@ -46,7 +46,7 @@
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <form action="/" method="POST">
                     <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Search for any TV show or series ..." required autocomplete="off" style="height: 45px; font-size: 18px;">
+                        <input type="text" name="q" class="form-control" placeholder="Search for any TV show or series ..." required autocomplete="off" style="height: 40px; font-size: 18px;">
                         <div class="input-group-append">
                             <button class="btn btn-warning" type="submit">Search</button>
                         </div>
@@ -62,7 +62,7 @@
             </div>
         </div> -->
 
-        <h1 class="display-3 mt-4" id="title" style="margin-bottom: -10px;">{{ data["title"] }}</h1>
+        <h1 class="display-3 mt-5" id="title" style="margin-bottom: -10px;">{{ data["title"] }}</h1>
         <!-- <label class="text-secondary ml-1">Or Try → <span id="typed"></span></label> -->
         <p class="mt-2">{{ data["plot"] }}</p>
         <p style="line-height: 35px;">
@@ -71,7 +71,7 @@
             {% endfor %}
         </p>
         <br>
-        <h2>Episodes rating trend <small>(based on {{ data["episodes"]|length }} episodes)</small></h2>
+        <h2 class="mb-2">Rating Trend <small style="font-size: 18px;">(based on {{ data["episodes"]|length }} episodes)</small></h2>
         <canvas id="myChart" height="80"></canvas>
         <br>
         <h1 class="display-5">FYI ...</h1>
@@ -96,11 +96,13 @@
         type: 'line',
         data: {
             labels: [{% for item in labels %}"{{item}}",{% endfor %}],
-            datasets: [{ 
-                data: [{% for item in values %}{{item|tojson|safe}},{% endfor %}],
-                borderColor: "#ffc107",
-                fill: true
-            }]
+            datasets: [
+                {
+                    data: [{% for item in values %}{{item|tojson|safe}},{% endfor %}],
+                    borderColor: "#ffc107",
+                    fill: true
+                },
+            ]
         },
         options: {
             tooltips: {
